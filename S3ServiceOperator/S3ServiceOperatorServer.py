@@ -79,6 +79,9 @@ class S3ServiceOperatorServer:
             new_course_year = request.json.get('new_course_year')
             new_coordinator_id = request.json.get('new_coordinator_id')
 
+            if not new_course_year or not new_coordinator_id:
+                return 'New course year and new coordinator id are required to copy', 400
+
             s3_url = f"/tree/{course_code}/{course_year}/{coordinator_id}"
             new_s3_url = f"/tree/{course_code}/{new_course_year}/{new_coordinator_id}"
 
@@ -105,6 +108,7 @@ class S3ServiceOperatorServer:
     def run(self):
         # Run the Flask application on the specified port
         self.app.run(debug=True, port=self.port)
+
 
 if __name__ == '__main__':
     # Create an instance of MyFlaskApp and run it
