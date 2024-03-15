@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import IO
 
+
 class S3ServiceOperator(ABC):
 
     @abstractmethod
@@ -16,6 +17,6 @@ class S3ServiceOperator(ABC):
         pass
 
     @abstractmethod
-    def get_file(self, bucket_name: str, key: str, *args, **kwargs):
+    async def get_file(self, bucket_name: str, key: str, *args, **kwargs):
         pass
 

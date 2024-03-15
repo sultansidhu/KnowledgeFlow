@@ -4,3 +4,4 @@ Flask==3.0.2
 importlib_metadata==7.0.2
 s3transfer==0.10.1
 urllib3==1.26.18
+pyyaml

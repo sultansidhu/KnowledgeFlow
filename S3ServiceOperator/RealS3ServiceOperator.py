@@ -1,8 +1,8 @@
 import asyncio
 import boto3
-from botocore.exceptions import ClientError
 import io
 import S3ServiceOperator
+
 
 class RealS3ServiceOperator(S3ServiceOperator):
 
@@ -15,7 +15,6 @@ class RealS3ServiceOperator(S3ServiceOperator):
         )
 
     async def upload_file(self, bucket_name: str, key: str, file_stream: IO, *args, **kwargs) -> None:
-        # Convert synchronous call to asynchronous
         await asyncio.get_event_loop().run_in_executor(
             None, 
             lambda: self.s3_client.upload_fileobj(file_stream, bucket_name, key)
@@ -36,5 +35,5 @@ class RealS3ServiceOperator(S3ServiceOperator):
             lambda: self.s3_client.delete_object(Bucket=bucket_name, Key=key)
         )
 
-    def get_file(self, bucket_name: str, key: str, *args, **kwargs):
-        return self.s3_client.get_object(Bucket=bucket_name, Key=key)
+    async def get_file(self, bucket_name: str, key: str, *args, **kwargs):
+        return await self.s3_client.get_object(Bucket=bucket_name, Key=key)

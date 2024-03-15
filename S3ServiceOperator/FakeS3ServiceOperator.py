@@ -1,5 +1,5 @@
-import io
 import S3ServiceOperator
+
 
 class FakeS3ServiceOperator(S3ServiceOperator):
 
@@ -16,3 +16,6 @@ class FakeS3ServiceOperator(S3ServiceOperator):
 
     async def delete_file(self, bucket_name: str, key: str, *args, **kwargs) -> None:
         print(f"Deleting file {bucket_name} with key {key}")
+
+    async def get_file(self, bucket_name: str, key: str, *args, **kwargs):
+        return "Some json data"
