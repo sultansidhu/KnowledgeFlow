@@ -1,8 +1,27 @@
 version: '3'
 
 services:
+
   s3-services:
     build:
       context: ./S3ServiceOperator
     ports:
       - "8000:8000"
+    networks:
+      - knowledgeflow-network
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "3306:3306"
+    networks:
+      - knowledgeflow-network
+
+networks:
+
+  knowledgeflow-network:
+    driver: bridge
