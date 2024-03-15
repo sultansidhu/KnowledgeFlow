@@ -66,14 +66,31 @@ class S3ServiceOperatorServer:
                 try:
                     req_data = request.json
                     json_data = jsonify(req_data)
-                    data_stream = BytesIO(json_data)
-                    result = await self.client.upload_file(self.bucket_name, s3_url, data_stream)
+                    result = await self.client.upload_file(self.bucket_name, s3_url, BytesIO(json_data))
                     return result
                 except Exception as e:
                     return str(e), 404
                 
             else:
                 return f"Invaild Request Type {request.method}", 400
+
+        @self.app.route('/tree/<course_code>/<course_year>/<coordinator_id>/copy', methods=['POST'])
+        async def copy_tree(course_code, course_year, coordinator_id):
+            new_course_year = request.json.get('new_course_year')
+            new_coordinator_id = request.json.get('new_coordinator_id')
+
+            s3_url = f"/tree/{course_code}/{course_year}/{coordinator_id}"
+            new_s3_url = f"/tree/{course_code}/{new_course_year}/{new_coordinator_id}"
+
+            try:
+                json_data = await self.client.get_file(self.bucket_name, s3_url)
+                if json_data:
+                    result = await self.client.upload_file(self.bucket_name, new_s3_url, json_data)
+                    return result
+                else:
+                    return 'Error getting JSON data from S3', 500
+            except Exception as e:
+                return str(e), 404
         
     async def get_json_data_from_s3(self, bucket_name, object_key):
         try:
