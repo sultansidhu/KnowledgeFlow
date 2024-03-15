@@ -35,3 +35,6 @@ class RealS3ServiceOperator(S3ServiceOperator):
             None,
             lambda: self.s3_client.delete_object(Bucket=bucket_name, Key=key)
         )
+
+    def get_file(self, bucket_name: str, key: str, *args, **kwargs):
+        return self.s3_client.get_object(Bucket=bucket_name, Key=key)

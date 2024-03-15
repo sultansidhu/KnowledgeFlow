@@ -14,3 +14,8 @@ class S3ServiceOperator(ABC):
     @abstractmethod
     async def delete_file(self, bucket_name: str, key: str, *args, **kwargs) -> None:
         pass
+
+    @abstractmethod
+    def get_file(self, bucket_name: str, key: str, *args, **kwargs):
+        pass
+

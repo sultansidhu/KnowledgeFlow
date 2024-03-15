@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  s3-services:
+    build:
+      context: ./S3ServiceOperator
+    ports:
+      - "8000:8000"
