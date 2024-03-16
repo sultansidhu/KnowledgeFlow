@@ -17,4 +17,5 @@ CREATE TABLE IF NOT EXISTS knowledge_trees (
     s3_link VARCHAR(100),
     FOREIGN KEY (coordinator_id) REFERENCES coordinators(id),
     FOREIGN KEY (course_id) REFERENCES courses(id)
+    UNIQUE (coordinator_id, course_id)
 );
