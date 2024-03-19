@@ -8,13 +8,12 @@ import requests
 
 class S3Accessor:
     def __init__(self):
-        self.service_url = os.environ.get("S3_SERVICE_URL", "http://localhost:5750")
+        self.service_url = os.environ.get("S3_SERVICE_URL", "http://localhost:8000")
 
-    def get_knowledge_tree_from_s3(self):
+    def get_knowledge_tree_with_s3_link(self, s3_url):
         pass
 
-    def get_s3_link_for_knowledge_tree(self):
+    def get_s3_link_for_knowledge_tree(self, course_id, coordinator_id, offering_year):
         pass
-
 
 
