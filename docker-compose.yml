@@ -23,6 +23,16 @@ services:
     networks:
       - knowledgeflow-network
 
+  knowledge-tree-manager:
+    build:
+      context: ./KnowledgeTreeManager
+    ports:
+      - "5000:5000"
+    environment:
+      - S3_SERVICE_URL=http://s3-services:8000
+    networks:
+      - knowledgeflow-network
+
 networks:
 
   knowledgeflow-network:
